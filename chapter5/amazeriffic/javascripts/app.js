@@ -4,7 +4,52 @@ var main = function (toDoObjects) {
 	var toDos = toDoObjects.map(function(toDo) {
 		return toDo.description;
 	});
+	
+	var organizeByTag = function (toDoObjects) {
+		var tags = [
+			{
+				"name" : "shopping",
+				"toDos" : ["Get groceries"]
+			},
 
+			{
+				"name" : "chores",
+				"toDos" : ["Get groceries", "Take Gracie to the park"]
+			},
+
+			{
+				"name" : "writing",
+				"toDos" : ["Make up some new toDos", "Finish writing this book"]
+			},
+
+			{
+				"name" : "work",
+				"toDos" : ["Make up some new ToDos", "Prep for Monday's class",
+				"Answer emails", "Finish writing this book"]
+			},
+
+			{
+				"name" : "teaching",
+				"toDos" : ["Prep for Monday's class"]
+			},
+			
+			{
+				"name" : "pets",
+				"toDos" : ["Take Gracie to the park"]
+			}
+		];
+
+		tags.forEach(function (tag) {
+			var $tagName = $("<h3>").text(tag.name), $content = $("<ul>");
+
+			tag.toDos.forEach(function (description) {
+				var $li = $("<li>").text(description);
+				$content.append($li);
+			});
+			$("main .content").append($tagName);
+			$("main .content").append($content);
+		});
+	};
 	$(".tabs a span").toArray().forEach(function (element) {
 		$(element).on("click", function () {
 			var $element = $(element), $content;
@@ -26,51 +71,7 @@ var main = function (toDoObjects) {
 				});
 				$("main .content").append($content);
 			} else if ($element.parent().is(":nth-child(3)")) {
-				console.log("the tags tab was clicked!");
-
-				var organizedByTag = [
-					{
-						"name" : "shopping",
-						"toDos" : ["Get groceries"]
-					},
-
-					{
-						"name" : "chores",
-						"toDos" : ["Get groceries", "Take Gracie to the park"]
-					},
-
-					{
-						"name" : "writing",
-						"toDos" : ["Make up some new toDos", "Finish writing this book"]
-					},
-
-					{
-						"name" : "work",
-						"toDos" : ["Make up some new ToDos", "Prep for Monday's class",
-						"Answer emails", "Finish writing this book"]
-					},
-
-					{
-						"name" : "teaching",
-						"toDos" : ["Prep for Monday's class"]
-					},
-					
-					{
-						"name" : "pets",
-						"toDos" : ["Take Gracie to the park"]
-					}
-				]
-
-				organizedByTag.forEach(function (tag) {
-					var $tagName = $("<h3>").text(tag.name), $content = $("<ul>");
-
-					tag.toDos.forEach(function (description) {
-						var $li = $("<li>").text(description);
-						$content.append($li);
-					});
-					$("main .content").append($tagName);
-					$("main .content").append($content);
-				});
+				var organizedByTag = organizeByTag(toDoObjects);
 			} else if ($element.parent().is(":nth-child(4)")) {
 				$content = $("<ul>");
 				$content.append($("<section class=input><input type=text><button>+</button>"));
@@ -82,8 +83,8 @@ var main = function (toDoObjects) {
 			}
 			return false;
 		});
-	});
 	$(".tabs a:first-child span").trigger("click");
+	});
 };
 
 $(document).ready(function() {
