@@ -30,7 +30,6 @@ var main = function (toDoObjects) {
 		});
 
 		tags = tagObjects;
-		console.log(tags);
 
 		tags.forEach(function (tag) {
 			var $tagName = $("<h3>").text(tag.name), $content = $("<ul>");
