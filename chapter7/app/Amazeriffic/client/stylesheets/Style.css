@@ -1,0 +1,137 @@
+body {
+	background: #f9e933;
+	font-family: Droid Sans;
+}
+
+h1, h2, h3, h4 {
+	font-family: Ubuntu;
+}
+
+a {
+	text-decoration: none;
+	color: Red;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+header, main, footer {
+	min-width: 855px;
+}
+
+header .container, main .container, footer .container {
+	max-width: 855px;
+	margin: auto;
+}
+
+header {
+	background: white;
+	overflow: auto;
+	padding-bottom: 10px;
+	border-bottom: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: Silver;
+}
+
+header h1 {
+	float: left;
+	width: 570px;
+	color: Red;
+	font-size: 28pt;
+	font-style: italic;
+	font-weight: bold;
+}
+
+header nav {
+	float: right;
+	width: 285px;
+}
+
+main {
+	background: white;
+	overflow: auto;
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+
+main ul li {
+	background: lightcyan;
+	border-top-width: 5px;
+	border-bottom-width: 5px;
+	border-style: solid;
+	border-color: #eee;
+}
+
+p {
+	padding-bottom: 10px;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 16pt;
+	padding-bottom: 10px;
+}
+
+h3 {
+	font-weight: bold;
+	font-size: 16pt;
+	padding-bottom: 10px;
+}
+
+h5 {
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+img {
+	float: right;
+}
+
+.content {
+	background: #eee;
+	border-radius: 0 5px 5px 5px;
+	width: 100%;
+	padding: 10px;
+}
+
+.tabs a span {
+	display: inline-block;
+	border-radius: 5px 5px 0 0;
+	width: 100px;
+	margin-right: 10px;
+	text-align: center;
+	background: #ddd;
+	padding: 5px;
+}
+
+.tabs a span.active {
+	background: #eee;
+}
+
+footer {
+	clear: both;
+}
+
+.contact {
+	float: left;
+	width: 570px;
+}
+
+.contact p:first-of-type{
+	font-style: italic;
+	color: Red;
+}
+
+.sitemap {
+	float: right;
+	width: 285px;
+}
+
+.sitemap table {
+	width: 100%;
+}
+
+.sitemap li {
+	padding-bottom: 5px;
+}
