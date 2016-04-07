@@ -1,0 +1,66 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'urlencoded' ]
+2 info using npm@1.4.14
+3 info using node@v0.10.29
+4 verbose node symlink /usr/local/bin/node
+5 verbose cache add [ 'urlencoded', null ]
+6 verbose cache add name=undefined spec="urlencoded" args=["urlencoded",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'urlencoded',
+7 verbose parsed url   path: 'urlencoded',
+7 verbose parsed url   href: 'urlencoded' }
+8 silly lockFile b4dc94eb-urlencoded urlencoded
+9 verbose lock urlencoded /home/vagrant/.npm/b4dc94eb-urlencoded.lock
+10 silly lockFile b4dc94eb-urlencoded urlencoded
+11 silly lockFile b4dc94eb-urlencoded urlencoded
+12 verbose addNamed [ 'urlencoded', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile 930de895-urlencoded urlencoded@
+15 verbose lock urlencoded@ /home/vagrant/.npm/930de895-urlencoded.lock
+16 silly addNameRange { name: 'urlencoded', range: '*', hasData: false }
+17 verbose url raw urlencoded
+18 verbose url resolving [ 'https://registry.npmjs.org/', './urlencoded' ]
+19 verbose url resolved https://registry.npmjs.org/urlencoded
+20 info trying registry request attempt 1 at 00:20:13
+21 http GET https://registry.npmjs.org/urlencoded
+22 http 404 https://registry.npmjs.org/urlencoded
+23 silly registry.get cb [ 404,
+23 silly registry.get   { 'content-type': 'application/json',
+23 silly registry.get     'cache-control': 'max-age=0',
+23 silly registry.get     'content-length': '2',
+23 silly registry.get     'accept-ranges': 'bytes',
+23 silly registry.get     date: 'Thu, 17 Mar 2016 00:20:13 GMT',
+23 silly registry.get     via: '1.1 varnish',
+23 silly registry.get     age: '0',
+23 silly registry.get     connection: 'keep-alive',
+23 silly registry.get     'x-served-by': 'cache-jfk1051-JFK',
+23 silly registry.get     'x-cache': 'MISS',
+23 silly registry.get     'x-cache-hits': '0',
+23 silly registry.get     'x-timer': 'S1458174013.449088,VS0,VE49' } ]
+24 silly lockFile 930de895-urlencoded urlencoded@
+25 silly lockFile 930de895-urlencoded urlencoded@
+26 error 404 Not Found
+26 error 404
+26 error 404 'urlencoded' is not in the npm registry.
+26 error 404 You should bug the author to publish it
+26 error 404
+26 error 404 Note that you can also install from a
+26 error 404 tarball, folder, or http url, or git url.
+27 error System Linux 3.2.0-23-generic-pae
+28 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install" "urlencoded"
+29 error cwd /home/vagrant/app/amazeriffic
+30 error node -v v0.10.29
+31 error npm -v 1.4.14
+32 error code E404
+33 verbose exit [ 1, true ]
