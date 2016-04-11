@@ -1,0 +1,8 @@
+{
+	"name": "atlusfan_tweet_counter",
+	"description": "Tweet counter example from Learning Web App Development",
+	"dependencies": {
+		"ntwitter":"0.5.x",
+		"redis":"0.9.x"
+	}
+}
