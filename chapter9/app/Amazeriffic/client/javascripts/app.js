@@ -1,32 +1,50 @@
 var main = function (toDoObjects) {
 	"use strict";
+	var toDos,
+		tabs;
 
-	var toDos = toDoObjects.map(function(toDo) {
+	toDos = toDoObjects.map(function(toDo) {
 		return toDo.description;
 	});
 
-	$(".tabs a span").toArray().forEach(function (element) {
-		$(element).on("click", function () {
-			var $element = $(element), $content;
+	tabs = []; //Tabs will start as an empty array.
 
-			$(".tabs a span").removeClass("active");
-			$element.addClass("active");
-			$("main .content").empty();
+	//The following code adds the tabs to the array.
+	tabs.push({
+		"name":"Newest",
+		"content":function () {
+			$.get("todos.json", function (toDoObjects) {
+				var $content;
 
-			if ($element.parent().is(":nth-child(1)")) {
 				$content = $("<ul>");
-				for(var index = 0; index < toDos.length; index++) {
-					$content.prepend($("<li>").text(toDos[index]));
+				for(i = toDos.length-1; i >= 0; i--) {
+					$content.append($("<li>").text(toDos[i]));
 				}
-				$("main .content").append($content);
-			} else if ($element.parent().is(":nth-child(2)")) {
+				callback($content);
+			});
+		}
+	});
+
+	tabs.push({
+		"name":"Oldest",
+		"content":function () {
+			$.get("todos.json", function (toDoObjects) {
+				var $content;
 				$content = $("<ul>");
 				toDos.forEach(function (todo) {
 					$content.append($("<li>").text(todo));
 				});
-				$("main .content").append($content);
-			} else if ($element.parent().is(":nth-child(3)")) {
-				var tags = [];
+				callback($content);
+			});
+		}
+	});
+
+	tabs.push({
+		"name":"Tags",
+		"content":function () {
+			$.get("todos.json", function (toDoObjects) {
+				var $content,
+				tags = [];
 
 				toDoObjects.forEach(function (toDo) {
 					toDo.tags.forEach(function (tag) {
@@ -41,7 +59,7 @@ var main = function (toDoObjects) {
 					
 					toDoObjects.forEach(function (toDo) {
 						if (toDo.tags.indexOf(tag) !== -1) {
-							toDosWithTag.push(toDo.description)
+							toDosWithTag.push(toDo.description);
 						}
 					});
 
@@ -58,40 +76,61 @@ var main = function (toDoObjects) {
 					$("main .content").append($tagName);
 					$("main .content").append($content);
 				});
-			} else if ($element.parent().is(":nth-child(4)")) {
+				callback($content);
+			});
+		}
+	});
+
+	tabs.push({
+		"name":"Add",
+		"content":function () {
+			$.get("todos.json", function (toDoObjects) {
 				var $input = $("<input>").addClass("description"),
 					$inputLabel = $("<p>").text("Description: "),
 					$tagInput = $("<input>").addClass("tags"),
 					$tagLabel = $("<p>").text("Tags: "),
-					$button = $("<button>").text("+");
+					$button = $("<button>").text("+"),
+					$content;
 
 				$button.on("click", function () {
 					var description = $input.val(),
 						tags = $tagInput.val().split(","),
 						newToDo = {"description" : description, "tags" : tags};
 
-					toDoObjects.push({"description" : description, "tags" :tags});
-
 					$.post("todos", newToDo, function (result) {
-						console.log(result);
+						$input.val("");
+						$tagInput.val("");
 
-						toDoObjects.push(newToDo);
-
-						toDos = toDoObjects.map(function (toDo) {
-							return toDo.description;
-						});
+						$(".tabs a:first span").trigger("click");
 					});
-
-					$input.val("");
-					$tagInput.val("");
 				});
-				$("main .content").append($inputLabel).append($input).append($tagLabel)
+				$callback($content);
+				$("main .content").append($inputLabel).append($input).append($tagLabel);
 				$("main .content").append($tagInput).append($button);
-			}
+			});
+		}
+	});
+
+	tabs.forEach(function (tab) {
+		var $aElement = $("<a>").attr("href",""),
+			$spanElement = $("<span>").text(tab.name);
+
+		$aElement.append($spanElement);
+
+		$spanElement.on("click", function () {
+			var $content;
+
+			$(".tabs a span").removeClass("active");
+			$element.addClass("active");
+			$("main .content").empty();
+
+			tab.content(function ($content) {
+				$("main .content").append($content);
+			});
 			return false;
 		});
-	$(".tabs a:first-child span").trigger("click");
 	});
+	$(".tabs a:first-child span").trigger("click");
 };
 
 $(document).ready(function() {
