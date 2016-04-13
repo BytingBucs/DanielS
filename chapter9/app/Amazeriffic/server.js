@@ -1,7 +1,9 @@
 var express = require("express"),
 	http = require("http"),
-	bodyParser = require("body-parser"),
 	mongoose = require("mongoose"),
+	bodyParser = require("body-parser"),
+	toDosController = require("./controllers/todos_controller.js"),
+	usersController = require("./controllers/users_controller.js"),
 	app = express(),
 	services,
 	mongoUrl = "mongodb://localhost/amazeriffic";
@@ -17,35 +19,17 @@ if (process.env.VCAP_SERVICES) {
 
 mongoose.connect(mongoUrl);
 
-var ToDoSchema = mongoose.Schema({
-	description: String,
-	tags: [String]
-});
-
-var ToDo = mongoose.model("ToDo", ToDoSchema);
-
 http.createServer(app).listen(process.env.PORT || 3000);
 
-app.get("/todos.json", function (req, res) {
-	ToDo.find({}, function (err, toDos) {
-		res.json(toDos);
-	});
-});
-
-app.post("/todos", function (req, res) {
-	var newToDo = new ToDo({"description":req.body.description,
-	"tags":req.body.tags});
-	newToDo.save(function (err, result) {
-		if (err !== null) {
-			console.log(err);
-			res.send("ERROR");
-		} else {
-			ToDo.find({}, function (err, result) {
-				if (err !== null) {
-					res.send("ERROR");
-				}
-				res.json(result);
-			});
-		}
-	});
-});
+app.get("/todos.json", toDosController.index);
+app.get("/todos/:id", toDosController.show);
+app.post("/todos", toDosController.create);
+app.get("/users.json", usersController.index);
+app.post("/users", usersController.create);
+app.get("/users/:username", usersController.show);
+app.put("/users/:username", usersController.update);
+app.del("/users/:username", usersController.destroy);
+app.get("/users/:username/todos.json", toDosController.index);
+app.post("/users/:username/todos", toDosController.create);
+app.put("/users/:username/todos/:id", toDosController.update);
+app.del("/users/:username/todos/:id", toDosController.destroy);

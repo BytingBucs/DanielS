@@ -12,36 +12,40 @@ var main = function (toDoObjects) {
 	//The following code adds the tabs to the array.
 	tabs.push({
 		"name":"Newest",
-		"content":function () {
+		"content":function (callback) {
 			$.get("todos.json", function (toDoObjects) {
-				var $content;
+				var $content = $("<ul>");
 
-				$content = $("<ul>");
 				for(i = toDos.length-1; i >= 0; i--) {
 					$content.append($("<li>").text(toDos[i]));
 				}
+				console.log($content);
 				callback($content);
+			}).fail(function (jqXHR, textStatus, error) {
+				callback(error, null);
 			});
 		}
 	});
 
 	tabs.push({
 		"name":"Oldest",
-		"content":function () {
+		"content":function (callback) {
 			$.get("todos.json", function (toDoObjects) {
-				var $content;
-				$content = $("<ul>");
-				toDos.forEach(function (todo) {
+				var $content = $("<ul>");
+
+				toDoObjects.forEach(function (todo) {
 					$content.append($("<li>").text(todo));
 				});
 				callback($content);
+			}).fail(function (jqXHR, textStatus, error) {
+				callback(error, null);
 			});
 		}
 	});
 
 	tabs.push({
 		"name":"Tags",
-		"content":function () {
+		"content":function (callback) {
 			$.get("todos.json", function (toDoObjects) {
 				var $content,
 				tags = [];
@@ -77,13 +81,15 @@ var main = function (toDoObjects) {
 					$("main .content").append($content);
 				});
 				callback($content);
+			}).fail(function (jqXHR, textStatus, error) {
+				callback(error, null);
 			});
 		}
 	});
 
 	tabs.push({
 		"name":"Add",
-		"content":function () {
+		"content":function (callback) {
 			$.get("todos.json", function (toDoObjects) {
 				var $input = $("<input>").addClass("description"),
 					$inputLabel = $("<p>").text("Description: "),
@@ -107,6 +113,8 @@ var main = function (toDoObjects) {
 				$callback($content);
 				$("main .content").append($inputLabel).append($input).append($tagLabel);
 				$("main .content").append($tagInput).append($button);
+			}).fail(function (jqXHR, textStatus, error) {
+				callback(error, null);
 			});
 		}
 	});
@@ -121,11 +129,15 @@ var main = function (toDoObjects) {
 			var $content;
 
 			$(".tabs a span").removeClass("active");
-			$element.addClass("active");
+			$spanElement.addClass("active");
 			$("main .content").empty();
 
 			tab.content(function ($content) {
-				$("main .content").append($content);
+				if (err !== null) {
+					alert("Whoops, there was a problem with your request " + err);
+				} else {
+					$("main .content").append($content);
+				}
 			});
 			return false;
 		});
