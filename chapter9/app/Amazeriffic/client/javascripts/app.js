@@ -16,8 +16,8 @@ var main = function (toDoObjects) {
 			$.get("todos.json", function (toDoObjects) {
 				var $content = $("<ul>");
 
-				for(var i = toDos.length-1; i >= 0; i--) {
-					$content.append($("<li>").text(toDos[i]));
+				for(var i = toDoObjects.length-1; i >= 0; i--) {
+					$content.append($("<li>").text(toDoObjects[i].description));
 				}
 				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
@@ -32,8 +32,8 @@ var main = function (toDoObjects) {
 			$.get("todos.json", function (toDoObjects) {
 				var $content = $("<ul>");
 
-				for(var i = toDos.length-1; i >= 0; i--) {
-					$content.prepend($("<li>").text(toDos[i])); //Just doing the last function but in reverse since it worked. Otherwise it returns an array of objects.
+				for(var i = toDoObjects.length-1; i >= 0; i--) {
+					$content.prepend($("<li>").text(toDoObjects[i].description)); //Just doing the last function but in reverse since it worked. Otherwise it returns an array of objects.
 				}
 				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {

@@ -1,5 +1,5 @@
 var ToDo = require("../models/todo.js"),
-	mongoose = require("mongoose"),
+	User = require("../models/user.js"),
 	ToDosController = {};
 
 ToDosController.index = function (req, res) {
