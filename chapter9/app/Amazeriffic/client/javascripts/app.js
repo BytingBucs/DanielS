@@ -19,7 +19,7 @@ var main = function (toDoObjects) {
 				for(var i = toDos.length-1; i >= 0; i--) {
 					$content.append($("<li>").text(toDos[i]));
 				}
-				callback(null, $content);
+				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -32,10 +32,10 @@ var main = function (toDoObjects) {
 			$.get("todos.json", function (toDoObjects) {
 				var $content = $("<ul>");
 
-				toDoObjects.forEach(function (todo) {
-					$content.append($("<li>").text(todo));
-				});
-				callback(null, $content);
+				for(var i = toDos.length-1; i >= 0; i--) {
+					$content.prepend($("<li>").text(toDos[i])); //Just doing the last function but in reverse since it worked. Otherwise it returns an array of objects.
+				}
+				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -46,8 +46,7 @@ var main = function (toDoObjects) {
 		"name":"Tags",
 		"content":function (callback) {
 			$.get("todos.json", function (toDoObjects) {
-				var $content,
-				tags = [];
+				var	tags = [];
 
 				toDoObjects.forEach(function (toDo) {
 					toDo.tags.forEach(function (tag) {
@@ -72,13 +71,14 @@ var main = function (toDoObjects) {
 				tagObjects.forEach(function (tag) {
 					var $tagName = $("<h3>").text(tag.name), $content = $("<ul>");
 
+					$content.append($tagName); //Moved this because the tags were appearing before the descriptions, not afterwards.
 					tag.ToDos.forEach(function (description) {
 						var $li = $("<li>").text(description);
 						$content.append($li);
 					});
-					$content.append($tagName);
+					
+					callback($content);
 				});
-				callback(null, $content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -94,7 +94,7 @@ var main = function (toDoObjects) {
 					$tagInput = $("<input>").addClass("tags"),
 					$tagLabel = $("<p>").text("Tags: "),
 					$button = $("<button>").text("+"),
-					$content;
+					$content = $("<p>");
 
 				$button.on("click", function () {
 					var description = $input.val(),
@@ -108,9 +108,13 @@ var main = function (toDoObjects) {
 						$(".tabs a:first span").trigger("click");
 					});
 				});
-				$content.append($inputLabel).append($input).append($tagLabel);
-				$content.append($tagInput).append($button);
-				$callback(null, $content);
+				$content.append($inputLabel);
+				$content.append($input);
+				$content.append($tagLabel);
+				$content.append($tagInput);
+				$content.append($button);
+				console.log($content);
+				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -132,7 +136,7 @@ var main = function (toDoObjects) {
 			$("main .content").empty();
 
 			tab.content(function ($content) {
-				var err = null;//For some reason err isn't being sent. This is just so I can test the file without it crashing.
+				var err = null; //For some reason err isn't being sent. This is just so I can test the file without it crashing.
 				if (err !== null) {
 					alert("Whoops, there was a problem with your request " + err);
 				} else {
