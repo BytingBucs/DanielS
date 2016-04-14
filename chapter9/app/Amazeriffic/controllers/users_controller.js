@@ -32,7 +32,7 @@ UsersController.show = function (req, res) {
 			console.log(err);
 			res.sendStatus(500, err);
 		} else if (result.length !== 0) {
-			res.sendFile("../client/index.html");
+			res.sendFile("index.html", { root: "client/" }); //sendfile is deprecated, root finds client, but there's no css formatting.
 		} else {
 			res.sendStatus(404);
 		}
