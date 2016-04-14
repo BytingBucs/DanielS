@@ -61,7 +61,7 @@ ToDosController.show = function (req, res) {
 	var id = req.params.id;
 	ToDo.find({"_id":id}, function (err, todo) {
 		if (err !== null) {
-			res.json(500, err);
+			res.status(500).json(err);
 		} else {
 			if (todo.length > 0) {
 				res.status(200).json(todo[0]);

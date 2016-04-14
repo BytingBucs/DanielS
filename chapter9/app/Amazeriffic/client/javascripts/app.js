@@ -19,7 +19,6 @@ var main = function (toDoObjects) {
 				for(var i = toDos.length-1; i >= 0; i--) {
 					$content.append($("<li>").text(toDos[i]));
 				}
-				console.log(callback);
 				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
@@ -114,14 +113,13 @@ var main = function (toDoObjects) {
 				$content.append($tagLabel);
 				$content.append($tagInput);
 				$content.append($button);
-				console.log($content);
 				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
 		}
 	});
-
+	//Note: Adding is still broken until we can define which user is pushing to ToDos.
 	tabs.forEach(function (tab) {
 		var $aElement = $("<a>").attr("href",""),
 			$spanElement = $("<span>").text(tab.name);
@@ -135,14 +133,9 @@ var main = function (toDoObjects) {
 			$(".tabs a span").removeClass("active");
 			$spanElement.addClass("active");
 			$("main .content").empty();
-			//This next line of code is still a tad bit buggy.
-			tab.content(function ($content) {
-				var err = null; //I have to define err here or it returns undefined. Why is this even here?
-				if (err !== null) {
-					alert("Whoops, there was a problem with your request " + err);
-				} else {
-					$("main .content").append($content);
-				}
+
+			tab.content(function ($content) { //Tab content has to be a function for callback to work correctly.
+				$("main .content").append($content);
 			});
 			return false;
 		});

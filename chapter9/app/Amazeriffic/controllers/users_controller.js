@@ -32,7 +32,7 @@ UsersController.show = function (req, res) {
 			console.log(err);
 			res.sendStatus(500, err);
 		} else if (result.length !== 0) {
-			res.sendfile("../client/index.html");
+			res.sendFile("../client/index.html");
 		} else {
 			res.sendStatus(404);
 		}
