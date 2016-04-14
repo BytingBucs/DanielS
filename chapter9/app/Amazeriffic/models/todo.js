@@ -5,7 +5,8 @@ var mongoose = require("mongoose"),
 ToDoSchema = mongoose.Schema({
 	description: String,
 	tags: [String],
-	owner : {type: ObjectId, ref: "User"}
+	owner : { type: ObjectId, ref: "User" }
 });
 
-module.exports.ToDo = mongoose.model("ToDo", ToDoSchema);
+var ToDo = mongoose.model("ToDo", ToDoSchema);
+module.exports = ToDo;

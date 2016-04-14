@@ -22,7 +22,7 @@ User.find({}, function (err, result) {
 
 UsersController.index = function (req, res) {
 	console.log("index action called");
-	res.send(200);
+	res.sendStatus(200);
 };
 
 UsersController.show = function (req, res) {
@@ -30,28 +30,28 @@ UsersController.show = function (req, res) {
 	User.find({"username":req.params.username}, function (err, result) {
 		if (err) {
 			console.log(err);
-			res.send(500, err);
+			res.sendStatus(500, err);
 		} else if (result.length !== 0) {
 			res.sendfile("../client/index.html");
 		} else {
-			res.send(404);
+			res.sendStatus(404);
 		}
 	});
 };
 
 UsersController.create = function (req, res) {
 	console.log("create action called");
-	res.send(200);
+	res.sendStatus(200);
 };
 
 UsersController.update = function (req, res) {
 	console.log("update action called");
-	res.send(200);
+	res.sendStatus(200);
 };
 
 UsersController.destroy = function (req, res) {
 	console.log("destroy action called");
-	res.send(200);
+	res.sendStatus(200);
 };
 
 module.exports = UsersController;

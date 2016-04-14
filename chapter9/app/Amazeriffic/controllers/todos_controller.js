@@ -1,4 +1,5 @@
 var ToDo = require("../models/todo.js"),
+	mongoose = require("mongoose"),
 	ToDosController = {};
 
 ToDosController.index = function (req, res) {
@@ -6,6 +7,7 @@ ToDosController.index = function (req, res) {
 		respondWithToDos;
 
 	respondWithToDos = function (query) {
+		console.log(ToDo);
 		ToDo.find(query, function (err, toDos) {
 			if (err !== null) {
 				res.json(500, err);
@@ -20,7 +22,7 @@ ToDosController.index = function (req, res) {
 			if (err !== null) {
 				res.json(500, err);
 			} else if (result.length === 0) {
-				res.send(404);
+				res.sendStatus(404);
 			} else {
 				respondWithToDos({"owner": result[0].id});
 			}
@@ -36,7 +38,7 @@ ToDosController.create = function (req, res) {
 		"tags":req.body.tags});
 	User.find({"username":username}, function (err, result) {
 		if (err) {
-			res.send(500);
+			res.sendStatus(500);
 		} else {
 			if (result.length === 0) {
 				newToDo.owner = null;
@@ -65,7 +67,7 @@ ToDosController.show = function (req, res) {
 			if (todo.length > 0) {
 				res.json(200, todo[0]);
 			} else {
-				res.send(404);
+				res.sendStatus(404);
 			}
 		}
 	});
@@ -73,12 +75,12 @@ ToDosController.show = function (req, res) {
 
 ToDosController.update = function (req, res) {
 	console.log("update action called");
-	res.send(200);
+	res.sendStatus(200);
 };
 
 ToDosController.destroy = function (req, res) {
 	console.log("destroy action called");
-	res.send(200);
+	res.sendStatus(200);
 };
 
 module.exports = ToDosController;

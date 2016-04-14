@@ -136,7 +136,6 @@ var main = function (toDoObjects) {
 			$("main .content").empty();
 
 			tab.content(function ($content) {
-				var err = null; //For some reason err isn't being sent. This is just so I can test the file without it crashing.
 				if (err !== null) {
 					alert("Whoops, there was a problem with your request " + err);
 				} else {
