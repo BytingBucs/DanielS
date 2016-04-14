@@ -19,6 +19,7 @@ var main = function (toDoObjects) {
 				for(var i = toDos.length-1; i >= 0; i--) {
 					$content.append($("<li>").text(toDos[i]));
 				}
+				console.log(callback);
 				callback($content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
@@ -134,8 +135,9 @@ var main = function (toDoObjects) {
 			$(".tabs a span").removeClass("active");
 			$spanElement.addClass("active");
 			$("main .content").empty();
-
+			//This next line of code is still a tad bit buggy.
 			tab.content(function ($content) {
+				var err = null; //I have to define err here or it returns undefined. Why is this even here?
 				if (err !== null) {
 					alert("Whoops, there was a problem with your request " + err);
 				} else {

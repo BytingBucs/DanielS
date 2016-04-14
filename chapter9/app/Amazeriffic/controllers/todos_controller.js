@@ -7,12 +7,11 @@ ToDosController.index = function (req, res) {
 		respondWithToDos;
 
 	respondWithToDos = function (query) {
-		console.log(ToDo);
 		ToDo.find(query, function (err, toDos) {
 			if (err !== null) {
-				res.json(500, err);
+				res.status(500).json(err);
 			} else {
-				res.json(200, toDos);
+				res.status(200).json(toDos);
 			}
 		});
 	};
@@ -49,9 +48,9 @@ ToDosController.create = function (req, res) {
 				console.log(result);
 				if (err !== null) {
 					console.log(err);
-					res.json(500, err);
+					res.status(500).json(err);
 				} else {
-					res.json(200, result);
+					res.status(200).json(result);
 				}
 			});
 		}
@@ -65,7 +64,7 @@ ToDosController.show = function (req, res) {
 			res.json(500, err);
 		} else {
 			if (todo.length > 0) {
-				res.json(200, todo[0]);
+				res.status(200).json(todo[0]);
 			} else {
 				res.sendStatus(404);
 			}
