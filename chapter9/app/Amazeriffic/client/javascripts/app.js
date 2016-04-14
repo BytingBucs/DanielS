@@ -16,11 +16,10 @@ var main = function (toDoObjects) {
 			$.get("todos.json", function (toDoObjects) {
 				var $content = $("<ul>");
 
-				for(i = toDos.length-1; i >= 0; i--) {
+				for(var i = toDos.length-1; i >= 0; i--) {
 					$content.append($("<li>").text(toDos[i]));
 				}
-				console.log($content);
-				callback($content);
+				callback(null, $content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -36,7 +35,7 @@ var main = function (toDoObjects) {
 				toDoObjects.forEach(function (todo) {
 					$content.append($("<li>").text(todo));
 				});
-				callback($content);
+				callback(null, $content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -77,10 +76,9 @@ var main = function (toDoObjects) {
 						var $li = $("<li>").text(description);
 						$content.append($li);
 					});
-					$("main .content").append($tagName);
-					$("main .content").append($content);
+					$content.append($tagName);
 				});
-				callback($content);
+				callback(null, $content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -110,9 +108,9 @@ var main = function (toDoObjects) {
 						$(".tabs a:first span").trigger("click");
 					});
 				});
-				$callback($content);
-				$("main .content").append($inputLabel).append($input).append($tagLabel);
-				$("main .content").append($tagInput).append($button);
+				$content.append($inputLabel).append($input).append($tagLabel);
+				$content.append($tagInput).append($button);
+				$callback(null, $content);
 			}).fail(function (jqXHR, textStatus, error) {
 				callback(error, null);
 			});
@@ -123,6 +121,7 @@ var main = function (toDoObjects) {
 		var $aElement = $("<a>").attr("href",""),
 			$spanElement = $("<span>").text(tab.name);
 
+		$(".tabs").append($aElement);
 		$aElement.append($spanElement);
 
 		$spanElement.on("click", function () {
@@ -133,6 +132,7 @@ var main = function (toDoObjects) {
 			$("main .content").empty();
 
 			tab.content(function ($content) {
+				var err = null;//For some reason err isn't being sent. This is just so I can test the file without it crashing.
 				if (err !== null) {
 					alert("Whoops, there was a problem with your request " + err);
 				} else {

@@ -71,4 +71,14 @@ ToDosController.show = function (req, res) {
 	});
 };
 
+ToDosController.update = function (req, res) {
+	console.log("update action called");
+	res.send(200);
+};
+
+ToDosController.destroy = function (req, res) {
+	console.log("destroy action called");
+	res.send(200);
+};
+
 module.exports = ToDosController;
