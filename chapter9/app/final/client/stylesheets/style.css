@@ -1,0 +1,29 @@
+body
+{
+	background-color: #B0C4DE;
+}
+
+
+table tr
+{
+	padding-left: 10em;
+	padding-right: 10em;
+	border-style: solid;
+}
+
+thead
+{
+	background-color: #7A8B8B;
+	border-style: solid;
+}
+
+tbody tr:nth-child(odd)
+{
+	background-color: #9370DB;
+	border-style: solid;
+}
+
+tbody tr:nth-child(even)
+{
+	background-color: #9400D3;
+}
