@@ -5,7 +5,7 @@ var main = function() {
 	$.post("Test", message, function (result) {
 		console.log(result);
 
-		$testResult.append(result);
+		$testResult.append("<p>" + result.message + "</p>");
 	});
 };
 

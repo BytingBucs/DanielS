@@ -20,5 +20,5 @@ mongoose.connect(mongoUrl);
 http.createServer(app).listen(process.env.PORT || 3000);
 
 app.post("/test", function (req, res) {
-	res.json({"message": "Success"});
+	res.json({"message": "Success!"});
 });
